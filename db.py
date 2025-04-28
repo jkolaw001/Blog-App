@@ -52,12 +52,7 @@ def get_post(post_id: int) -> PostOut | None:
 def create_post(post: PostCreate) -> PostOut:
     db = SessionLocal()
 
-    post_data = post.model_dump()
-    if not post_data.get("posted_date"):
-
-        post_data["posted_date"] = date.today()
-
-    post_model = DBPost(**post_data)
+    post_model = DBPost(**post.model_dump())
 
     db.add(post_model)
     db.commit()

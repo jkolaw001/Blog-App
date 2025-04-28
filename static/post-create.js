@@ -28,13 +28,11 @@ async function addPost(event){
        author: author,
        title: title,
        body: body,
-
     };
 
     if (datePosted){
         postData.posted_date = datePosted;
     }
-
 
     const headers = {
         "Accept": "application/json",
