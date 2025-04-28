@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from db_models import DBPost
-from schemas import PostOut
+from schemas import PostOut, PostCreate
+from datetime import date
 
 DATABASE_URL = "postgresql+psycopg://postgres:postgres@localhost:5432/blog"
 
@@ -48,5 +49,26 @@ def get_post(post_id: int) -> PostOut | None:
 # 2) Create a db model object
 # 2) Add it to the database
 # 3) Refresh the db model and then return it as a PostOut
-def create_post(post) -> PostOut:
-    pass
+def create_post(post: PostCreate) -> PostOut:
+    db = SessionLocal()
+
+    post_data = post.model_dump()
+    if not post_data.get("posted_date"):
+
+        post_data["posted_date"] = date.today()
+
+    post_model = DBPost(**post_data)
+
+    db.add(post_model)
+    db.commit()
+    db.refresh(post_model)
+
+    result = PostOut(
+        id=post_model.id,
+        author=post_model.author,
+        title=post_model.title,
+        body=post_model.body,
+        posted_date=post_model.posted_date,
+    )
+    db.close()
+    return result
