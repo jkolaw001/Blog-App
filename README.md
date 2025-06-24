@@ -3,6 +3,9 @@
 A simple blog platform for creating, viewing, and managing blog posts.
 Built with FastAPI, PostgreSQL, SQLAlchemy, and vanilla JavaScript.
 
+![image](https://github.com/user-attachments/assets/9e162033-7580-4393-b206-178ab5417354)
+![image](https://github.com/user-attachments/assets/228f91a3-a16e-4739-8375-3e41b6010a9d)
+
 ---
 
 ## Features
