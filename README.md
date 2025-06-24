@@ -1,44 +1,95 @@
-# Blog app
+# Simple Blog App
+
+A simple blog platform for creating, viewing, and managing blog posts.
+Built with FastAPI, PostgreSQL, SQLAlchemy, and vanilla JavaScript.
+
+---
+
+## Features
+
+-   Create, view, and list blog posts
+-   Responsive web interface
+-   RESTful API backend
+
+---
+
+## Tech Stack
+
+-   **Backend:** FastAPI (Python)
+-   **Database:** PostgreSQL (via Docker)
+-   **ORM:** SQLAlchemy
+-   **Frontend:** HTML, CSS, JavaScript
+
+---
 
 ## Setup
 
-### The database
+### 1. Clone the repository
 
-The included docker-compose file will run a Postgres database server. The
-following command will start the docker container and database server:
+```bash
+git clone <repo-url>
+cd fsf-4-blog-app
+```
+
+### 2. Start the PostgreSQL database with Docker
 
 ```bash
 docker compose up -d
 ```
 
-If you want to absolutely, positively make sure that you don't have any
-problems with previous docker containers, databases, etc, run the
-following commands **before** running the command above.
+If you want to ensure a clean environment, run:
 
 ```bash
-# kill all running containers
+# Kill all running containers
 docker kill $(docker ps -q)
 
-# remove all artifacts for all stopped containers
+# Remove all artifacts for all stopped containers
 docker system prune -af
 ```
 
-To connect to the psql shell on the database server
+### 3. Connect to the database (optional)
+
+To access the PostgreSQL shell inside the running container:
 
 ```bash
 docker exec -it postgres_db psql -U postgres
 ```
 
-### The FastAPI app
+### 4. Install Python dependencies
 
-This project requires these libraries:
+```bash
+pip install "fastapi[standard]" psycopg sqlalchemy
+```
 
-* "fastapi[standard]"
-* psycopg
-* sqlalchemy
-
-This command will run the FastAPI server:
+### 5. Run the FastAPI server
 
 ```bash
 fastapi dev main.py
 ```
+
+The app will be available at [http://localhost:8000/static/posts.html](http://localhost:8000/static/posts.html)
+
+---
+
+## Usage
+
+-   **View all posts:** [http://localhost:8000/static/posts.html](http://localhost:8000/static/posts.html)
+-   **Create a new post:** [http://localhost:8000/static/post-create.html](http://localhost:8000/static/post-create.html)
+-   **View post details:** Click a post title on the posts page
+
+---
+
+## Database
+
+-   The schema and sample data are in `data/blog.sql`.
+-   To load sample data, connect to the database and run:
+
+```bash
+psql -h localhost -U postgres -d blog -f data/blog.sql
+```
+
+---
+
+## License
+
+MIT
