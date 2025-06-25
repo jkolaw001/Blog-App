@@ -93,6 +93,4 @@ psql -h localhost -U postgres -d blog -f data/blog.sql
 
 ---
 
-## License
 
-MIT
